@@ -1,6 +1,8 @@
 import React from "react";
+import { IOutputField } from "../variables/interface";
 
-function OutputField({ label, outputField }: any) {
+function OutputField(props: IOutputField): JSX.Element {
+  const { label, outputField } = props;
   return (
     <section>
       <label>

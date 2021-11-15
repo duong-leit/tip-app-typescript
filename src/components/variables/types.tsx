@@ -1,20 +1,27 @@
-type dataType = {
+export type DataType = {
   bill: string;
   people: string;
   tip: string;
   isCustomTip: boolean;
 };
-type ErrType = {
+export type ErrType = {
   isErr: boolean;
   message: string;
 };
-type isProcess = {
+export type isProcess = {
   isCalculator: boolean;
   isChange: boolean;
 };
-type resultType = {
+export type resultType = {
   tipAmount: string;
   totalAmount: string;
 };
-
-export type { dataType, ErrType, isProcess, resultType };
+export type TipBtn = {
+  attribute: {
+    type: string;
+    id: string;
+    onClick: (e: any) => void;
+    disabled: boolean;
+  };
+  context: string;
+};

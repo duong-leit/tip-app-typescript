@@ -1,13 +1,12 @@
 import React from "react";
 import { useContext } from "react";
-// import { dataContext } from "../../Context";
 import { dataContext } from "../../Context";
 import { Button } from "./Button";
 import { OutputField } from "./OutputField";
+import { IOutputField } from "../variables/interface";
+import { TipBtn } from "../variables/types";
 
-import { btnList } from "./ButtonType";
-
-function BillResult() {
+function BillResult(): JSX.Element {
   const { resultCal, canProcess, onClickReset, handleSubmit } =
     useContext(dataContext);
   const label = [
@@ -19,9 +18,8 @@ function BillResult() {
     type: "text",
     value: canProcess.isCalculator ? "--:--" : resultCal.totalAmount,
   };
-
   //define inform button list
-  const btnList: btnList[] = [
+  const btnList: TipBtn[] = [
     {
       attribute: {
         type: "button",

@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import { BillInput, TipOption, PeopleInput } from "./compute/compute";
+import React from "react";
 import { BillResult } from "./result/result";
 import { BillCompute } from "./compute/compute";
 
-function Container() {
+function Container(): JSX.Element {
   return (
     <section className="bill">
       <BillCompute />

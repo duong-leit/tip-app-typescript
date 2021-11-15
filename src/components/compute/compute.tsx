@@ -9,35 +9,20 @@ import person from "../../assets/img/icon-person.svg";
 
 const tipList = [5, 10, 15, 25, 50];
 
-function BillCompute() {
-  // const { messageValidata} = props;
-
+function BillCompute(): JSX.Element {
   return (
     <div className="bill__compute">
       <form id="billForm" name="billForm">
         <BillInput />
-        <TipOption
-        // optionList={tipList}
-        // minCustom="0"
-        // step="0.01"
-        // data={data}
-        // handleInput={handleInput}
-        // handleTipBtn={handleTipBtn}
-        // onFocusTipCustom={onFocusTipCustom}
-        />
-        <PeopleInput
-        // data={data}
-        // handleInput={handleInput}
-        // messageValidata={err.message}
-        />
+        <TipOption />
+        <PeopleInput />
       </form>
     </div>
   );
 }
 
-function BillInput() {
+function BillInput(): JSX.Element {
   const dataValue = useContext(dataContext);
-  // const { data, handleInput } = props;
   const labelInput = {
     htmlFor: "billTotal",
     name: "Bill",
@@ -71,10 +56,8 @@ function BillInput() {
   );
 }
 
-function TipOption() {
-  // const dataValue = useContext(dataContext);
-  // const { handleInput, optionList } = props;
-  const { data, handleInput, onFocusTipCustom, handleTipBtn } =
+function TipOption(): JSX.Element {
+  const { data, handleInput, onFocusTipCustom, onClickTipBtn } =
     useContext(dataContext);
 
   let tipListBtn = [];
@@ -86,7 +69,7 @@ function TipOption() {
         data={data}
         classTip="percent-tip__option"
         valueTip={tipList[i]}
-        handleTipBtn={handleTipBtn}
+        onClickTipBtn={onClickTipBtn}
       />
     );
   }
@@ -112,23 +95,23 @@ function TipOption() {
   );
 }
 
-function PeopleInput() {
-  // const dataValue = useContext(dataContext);
-
+function PeopleInput(): JSX.Element {
   const { data, err, handleInput } = useContext(dataContext);
 
   //declare information of peopleInput
-  const labelInput = {
+  const labelInput: object = {
     htmlFor: "numberDivision",
     name: "Number of People",
     id: "peopleLabel",
   };
-  const option = (
+  const option: JSX.Element = (
     <span>
       <img src={person} alt="cannot find" />
     </span>
   );
-  const labelOption = <span className="error-number">{err.message}</span>;
+  const labelOption: JSX.Element = (
+    <span className="error-number">{err.message}</span>
+  );
   const section = {
     className: "bill-total--details",
     span: option,

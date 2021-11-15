@@ -4,7 +4,7 @@ import Container from "./components/container";
 import "./assets/sass/main.scss";
 import { HandleDataProvider } from "./Context";
 
-function App() {
+function App(): JSX.Element {
   return (
     <HandleDataProvider>
       <section className="page">

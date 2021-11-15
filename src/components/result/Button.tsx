@@ -1,11 +1,7 @@
 import React from "react";
-import { btnList } from "./ButtonType";
+import { btnProps } from "../variables/interface";
 
-export interface btnProps {
-  btnList: btnList[];
-}
-
-function Button(props: btnProps) {
+function Button(props: btnProps): JSX.Element {
   const btnList = props.btnList;
   return (
     <>

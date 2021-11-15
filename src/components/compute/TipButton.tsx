@@ -4,10 +4,11 @@ interface IButton {
   data: any;
   classTip: any;
   valueTip: any;
-  handleTipBtn: any;
+  onClickTipBtn: any;
 }
 
-function Button({ data, classTip, valueTip, handleTipBtn }: IButton) {
+function Button(props: IButton): JSX.Element {
+  const { data, classTip, valueTip, onClickTipBtn } = props;
   return (
     <div className={classTip}>
       <button
@@ -19,7 +20,7 @@ function Button({ data, classTip, valueTip, handleTipBtn }: IButton) {
         id={"tip-option-" + valueTip}
         name="tip"
         onClick={() => {
-          handleTipBtn(valueTip);
+          onClickTipBtn(valueTip);
         }}
       >
         {valueTip}%
