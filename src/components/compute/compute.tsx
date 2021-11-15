@@ -1,12 +1,43 @@
 import React from "react";
 import { useContext } from "react";
-import { dataContext } from "../Context";
+import { dataContext } from "../../Context";
 import InputField from "./InputField";
+
 import Button from "./TipButton";
 import dollar from "../../assets/img/icon-dollar.svg";
 import person from "../../assets/img/icon-person.svg";
-function BillInput(props) {
-  const { data, handleInput } = props;
+
+const tipList = [5, 10, 15, 25, 50];
+
+function BillCompute() {
+  // const { messageValidata} = props;
+
+  return (
+    <div className="bill__compute">
+      <form id="billForm" name="billForm">
+        <BillInput />
+        <TipOption
+        // optionList={tipList}
+        // minCustom="0"
+        // step="0.01"
+        // data={data}
+        // handleInput={handleInput}
+        // handleTipBtn={handleTipBtn}
+        // onFocusTipCustom={onFocusTipCustom}
+        />
+        <PeopleInput
+        // data={data}
+        // handleInput={handleInput}
+        // messageValidata={err.message}
+        />
+      </form>
+    </div>
+  );
+}
+
+function BillInput() {
+  const dataValue = useContext(dataContext);
+  // const { data, handleInput } = props;
   const labelInput = {
     htmlFor: "billTotal",
     name: "Bill",
@@ -23,10 +54,10 @@ function BillInput(props) {
     input: {
       className: "billTotal",
       id: "billTotal",
-      value: data.bill || "",
+      value: dataValue.data.bill || "",
       name: "bill",
       placeholder: "0.00",
-      onChange: handleInput,
+      onChange: dataValue.handleInput,
     },
   };
 
@@ -40,19 +71,21 @@ function BillInput(props) {
   );
 }
 
-function TipOption(props) {
-  const { handleInput, optionList } = props;
-  const { data, onFocusTipCustom, handleTipBtn } = useContext(dataContext);
+function TipOption() {
+  // const dataValue = useContext(dataContext);
+  // const { handleInput, optionList } = props;
+  const { data, handleInput, onFocusTipCustom, handleTipBtn } =
+    useContext(dataContext);
 
   let tipListBtn = [];
-  let optionLength = optionList.length;
+  let optionLength = tipList.length;
   for (let i = 0; i < optionLength; i++) {
     tipListBtn.push(
       <Button
         key={i}
         data={data}
         classTip="percent-tip__option"
-        valueTip={optionList[i]}
+        valueTip={tipList[i]}
         handleTipBtn={handleTipBtn}
       />
     );
@@ -79,9 +112,10 @@ function TipOption(props) {
   );
 }
 
-function PeopleInput(props) {
-  const { data, handleInput } = props;
-  const { err } = useContext(dataContext);
+function PeopleInput() {
+  // const dataValue = useContext(dataContext);
+
+  const { data, err, handleInput } = useContext(dataContext);
 
   //declare information of peopleInput
   const labelInput = {
@@ -118,4 +152,4 @@ function PeopleInput(props) {
   );
 }
 
-export { BillInput, TipOption, PeopleInput };
+export { BillCompute, BillInput, TipOption, PeopleInput };

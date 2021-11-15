@@ -1,10 +1,10 @@
 import React from "react";
 
-function OutputField({ label, outputField }) {
+function OutputField({ label, outputField }: any) {
   return (
     <section>
       <label>
-        {label.map((element, index) => (
+        {label.map((element: any, index: number) => (
           <span key={index}>{element}</span>
         ))}
       </label>

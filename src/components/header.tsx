@@ -1,7 +1,6 @@
 import React from "react";
 
 function Header() {
-  console.log("header");
   return (
     <nav className="App">
       <h1>

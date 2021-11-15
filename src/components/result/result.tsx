@@ -1,8 +1,11 @@
 import React from "react";
 import { useContext } from "react";
-import { dataContext } from "../Context";
+// import { dataContext } from "../../Context";
+import { dataContext } from "../../Context";
 import { Button } from "./Button";
 import { OutputField } from "./OutputField";
+
+import { btnList } from "./ButtonType";
 
 function BillResult() {
   const { resultCal, canProcess, onClickReset, handleSubmit } =
@@ -18,7 +21,7 @@ function BillResult() {
   };
 
   //define inform button list
-  const btnList = [
+  const btnList: btnList[] = [
     {
       attribute: {
         type: "button",

@@ -1,6 +1,13 @@
 import React from "react";
 
-function Button({ data, classTip, valueTip, handleTipBtn }) {
+interface IButton {
+  data: any;
+  classTip: any;
+  valueTip: any;
+  handleTipBtn: any;
+}
+
+function Button({ data, classTip, valueTip, handleTipBtn }: IButton) {
   return (
     <div className={classTip}>
       <button

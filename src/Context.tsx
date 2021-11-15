@@ -1,45 +1,59 @@
 import { createContext } from "react";
 import { useState } from "react";
 import React from "react";
-
-export const dataContext = createContext();
-
+import {
+  dataType,
+  ErrType,
+  isProcess,
+  resultType,
+} from "./components/variables/types";
 const url = `https://plitter-server.vercel.app/api/`;
 
-function HandleDataProvider({ children }) {
-  const [data, setData] = useState({
-    bill: 0,
-    people: 0,
-    tip: 0,
+interface IDataValue {
+  data: dataType;
+  err: ErrType;
+  canProcess: isProcess;
+  resultCal: resultType;
+  onClickReset: () => void;
+  handleSubmit: (e: any) => void;
+  handleInput: (e: any) => void;
+  onFocusTipCustom: (e: any) => void;
+  handleTipBtn: (value: string) => void;
+}
+const dataContext = createContext<IDataValue>({} as IDataValue);
+
+function HandleDataProvider({ children }: any) {
+  const [data, setData] = useState<dataType>({
+    bill: "0",
+    people: "0",
+    tip: "0",
     isCustomTip: false,
   });
 
-  const [err, setErr] = useState({
+  const [err, setErr] = useState<ErrType>({
     isErr: false,
     message: "",
   });
 
-  const [canProcess, setProcess] = useState({
+  const [canProcess, setProcess] = useState<isProcess>({
     isCalculator: false,
     isChange: false,
   });
 
-  const [resultCal, setResult] = useState({
+  const [resultCal, setResult] = useState<resultType>({
     tipAmount: "0.00",
     totalAmount: "0.00",
   });
 
   const onClickReset = () => {
-    setData({ bill: 0, people: 0, tip: 0 });
+    setData({ ...data, bill: "0", people: "0", tip: "0" });
     setErr({ isErr: false, message: "" });
     setResult({ tipAmount: "0.00", totalAmount: "0.00" });
     setProcess({ isCalculator: false, isChange: false });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     try {
-      // console.log("data:", data);
-      // console.log("data:", canProcess.isChange, canProcess.isCalculator);
       //is Change Input
       setProcess({ ...canProcess, isChange: false });
       if (Number(data.people) === 0) {
@@ -60,7 +74,7 @@ function HandleDataProvider({ children }) {
       });
       setProcess({ ...canProcess, isCalculator: true });
 
-      let results = await fetch(
+      let results: any = await fetch(
         `${url}calculate?bill=${Number(data.bill)}&people=${Number(
           data.people
         )}&tipPercent=${Number(data.tip)}`
@@ -80,7 +94,7 @@ function HandleDataProvider({ children }) {
     }
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: any) => {
     let inputName = e.target.name;
     let inputValue = e.target.value;
     let rgx = inputName !== "people" ? /^[0-9]*\.?[0-9]*$/ : /^[0-9]*$/;
@@ -90,7 +104,9 @@ function HandleDataProvider({ children }) {
           ...data,
           [inputName]: inputValue || 0,
         });
-        if (!(inputName === "tip" && data.bill === 0 && data.people === 0)) {
+        if (
+          !(inputName === "tip" && data.bill === "0" && data.people === "0")
+        ) {
           setProcess({
             ...canProcess,
             isChange: true,
@@ -100,20 +116,36 @@ function HandleDataProvider({ children }) {
     }
   };
 
-  const value = {
+  const onFocusTipCustom = (e: any) => {
+    if (!data.isCustomTip) {
+      setData({ ...data, tip: "", isCustomTip: true });
+      setProcess({ ...canProcess, isChange: true });
+    }
+  };
+
+  const handleTipBtn = (value: string) => {
+    if (Number(data.tip) !== parseInt(value)) {
+      setData({
+        ...data,
+        tip: value,
+        isCustomTip: false,
+      });
+    } else {
+      if (data.isCustomTip) setData({ ...data, isCustomTip: false });
+      setData({ ...data, tip: "0", isCustomTip: false });
+    }
+  };
+  const value: IDataValue = {
     data,
     err,
     canProcess,
     resultCal,
-    setData,
-    setErr,
-    setProcess,
-    setResult,
     onClickReset,
     handleSubmit,
     handleInput,
+    onFocusTipCustom,
+    handleTipBtn,
   };
   return <dataContext.Provider value={value}>{children}</dataContext.Provider>;
 }
-
-export { HandleDataProvider };
+export { dataContext, HandleDataProvider };
