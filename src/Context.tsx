@@ -12,7 +12,7 @@ import {
   IProviderProps,
   IFetchApi,
 } from "./components/variables/interface";
-const URL = `https://plitter-server.vercel.app/api/`;
+const URL = `https://tip-api-5pardh3od-duong-leit.vercel.app/api/`;
 
 const dataContext = createContext<IDataValue>({} as IDataValue);
 
