@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { dataContext } from "../../Context";
 import { Button } from "./Button";
 import { OutputField } from "./OutputField";
-import { IOutputField } from "../variables/interface";
 import { TipBtn } from "../variables/types";
 
 function BillResult(): JSX.Element {
